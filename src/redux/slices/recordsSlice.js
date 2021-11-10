@@ -7,7 +7,10 @@ const initialState = {
   message: '',
   isLoading: false,
   isMessageUploading: false,
-  error: null
+  errors: {
+    name: null,
+    message: null
+  }
 }
 
 const { createRecord, getRecords } = recordsThunks
@@ -21,6 +24,18 @@ const recordsSlice = createSlice({
     },
     changeMessage: (state, { payload }) => {
       state.message = payload
+    },
+    setErrors: (state, { payload }) => {
+      state.errors = payload
+    },
+    clearNameError: (state) => {
+      state.errors.name = null
+    },
+    clearMessageError: (state) => {
+      state.errors.message = null
+    },
+    clearErrors: (state) => {
+      state.errors = initialState.errors
     }
   },
   extraReducers: {
@@ -29,11 +44,11 @@ const recordsSlice = createSlice({
       state.isLoading = false
     },
     [getRecords.pending](state) {
-      state.error = null
+      state.errors = {}
       state.isLoading = true
     },
     [getRecords.rejected](state, { payload }) {
-      state.error = payload
+      state.errors = payload
       state.isLoading = false
     },
     [createRecord.fulfilled](state, { payload }) {
@@ -44,11 +59,11 @@ const recordsSlice = createSlice({
       state.isMessageUploading = false
     },
     [createRecord.pending](state) {
-      state.error = null
+      state.errors = {}
       state.isMessageUploading = true
     },
     [createRecord.rejected](state, { payload }) {
-      state.error = payload
+      state.errors = payload
       state.isMessageUploading = false
     }
   }

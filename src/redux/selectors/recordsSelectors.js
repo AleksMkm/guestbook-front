@@ -3,7 +3,7 @@ const nameSelector = state => state.records.name
 const messageSelector = state => state.records.message
 const isLoadingSelector = state => state.records.isLoading
 const isMessageUploadingSelector = state => state.records.isMessageUploading
-const errorSelector = state => state.records.error
+const errorsSelector = state => state.records.errors
 
 export default {
   recordsSelector,
@@ -11,5 +11,5 @@ export default {
   messageSelector,
   isLoadingSelector,
   isMessageUploadingSelector,
-  errorSelector
+  errorsSelector
 }
