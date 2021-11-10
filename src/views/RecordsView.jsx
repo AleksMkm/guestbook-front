@@ -2,6 +2,7 @@ import React from 'react'
 
 import Section from '../components/section/Section'
 import Form from '../components/form/Form'
+import RecordList from '../components/recordList/RecordList'
 
 const RecordsView = () => {
   return (
@@ -13,9 +14,8 @@ const RecordsView = () => {
         <Form />
       </Section>
       <Section
-        fullWidth
-        title="Contacts">
-        <div>a body</div>
+        fullWidth>
+        <RecordList />
       </Section>
     </Section>
   )

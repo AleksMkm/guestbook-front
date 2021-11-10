@@ -57,6 +57,7 @@ const recordsSlice = createSlice({
         ...state.records
       ]
       state.isMessageUploading = false
+      state.message = ''
     },
     [createRecord.pending](state) {
       state.errors = {}
