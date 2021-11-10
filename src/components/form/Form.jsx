@@ -15,9 +15,20 @@ const Form = () => {
   const dispatch = useDispatch()
   const btn = useRef()
 
-  const onSubmit = e => {
-    e.preventDefault()
-    btn.current.blur()
+  // useEffect(() => {
+  //   const listener = event => {
+  //     if (event.code === 'Enter' && event.ctrlKey) {
+  //       event.preventDefault()
+  //       handleSubmit()
+  //     }
+  //   }
+  //   document.addEventListener('keydown', listener)
+  //   return () => {
+  //     document.removeEventListener('keydown', listener)
+  //   }
+  // }, [])
+
+  const handleSubmit = () => {
     dispatch(recordsActions.clearErrors())
 
     const { isValid, errors } = recordFieldsValidator(name, message)
@@ -28,6 +39,19 @@ const Form = () => {
     }
 
     dispatch(recordsThunks.createRecord({ name, message }))
+  }
+
+  const onSubmit = e => {
+    e.preventDefault()
+    btn.current.blur()
+    handleSubmit()
+  }
+
+  const onKeyPress = e => {
+    if (event.code === 'Enter' && event.ctrlKey) {
+      e.preventDefault()
+      handleSubmit()
+    }
   }
 
   const onNameChange = (e) => {
@@ -43,7 +67,7 @@ const Form = () => {
   return (
     <>
       <h2 className="section-title">Leave your thoughts here</h2>
-      <form className="new-message-form" onSubmit={onSubmit}>
+      <form className="new-message-form" onSubmit={onSubmit} onKeyPress={onKeyPress}>
         <label className="field">
           <input
             className="field__name"
